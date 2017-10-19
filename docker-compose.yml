@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  jenkins:
+    image: jenkins
+    container_name: jenkins
+    restart: always
+    ports:
+      - 8080:8080
+      - 5000:5000
+    volumes:
+      - ./data:/var/jenkins_home
+
+  jenkins-slave:
+#    image: jenkins-slave
+    build: ./slave/
+    depends_on:
+      - jenkins
+    volumes:
+      - ./slave_home:/home/jenkins
+
+  jenkins-slave:
+#    image: jenkins-slave-robot
+    build: ./slave-robot/
+    depends_on:
+      - jenkins
+    volumes:
+      - ./slave_robot_home:/home/jenkins
