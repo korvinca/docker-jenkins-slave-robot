@@ -6,7 +6,8 @@ RUN apt-get update && \
     apt-get install tzdata
 
 RUN echo "America/Los_Angeles" > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
+    && rm /etc/localtime \
+	&& dpkg-reconfigure -f noninteractive tzdata
 
 ENV LC_ALL C
 ENV DEBCONF_NONINTERACTIVE_SEEN true
